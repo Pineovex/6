@@ -1,7 +1,11 @@
 {
-    // 这个文件里放两种语言的调试配置，按 F5 前在左上角下拉框里选：
-    //   「C: 调试当前文件」     —— 调试 .c 文件，先自动用 gcc 编译
+    // 这个文件里放三种调试配置，按 F5 前在左上角下拉框里选：
+    //   「C: 调试当前文件」     —— 调试 .c 文件，先自动用 gcc 编译（含 -static）
+    //   「C++: 调试当前文件」   —— 调试 .cpp 文件，先自动用 g++ 编译（含 -static）
     //   「Python: 调试当前文件」 —— 调试 .py 文件
+    //
+    // 注意：.cpp 必须用 g++ 编译，用 gcc 会报一堆 undefined reference
+    //       （gcc 不自动链接 libstdc++，这是最容易踩的坑）
     "version": "0.2.0",
     "configurations": [
         {
@@ -24,6 +28,27 @@
                 }
             ],
             "preLaunchTask": "gcc 编译当前文件"
+        },
+        {
+            "name": "C++: 调试当前文件",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${fileDirname}\\${fileBasenameNoExtension}.exe",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${fileDirname}",
+            "environment": [],
+            "externalConsole": true,
+            "MIMode": "gdb",
+            "miDebuggerPath": "D:\\Dev\\mingw64\\bin\\gdb.exe",
+            "setupCommands": [
+                {
+                    "description": "为 gdb 启用整齐打印",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ],
+            "preLaunchTask": "g++ 编译当前文件"
         },
         {
             "name": "Python: 调试当前文件",

@@ -9,6 +9,7 @@
                 "-g",
                 "-Wall",
                 "-Wextra",
+                "-static",
                 "-o",
                 "${fileDirname}\\${fileBasenameNoExtension}.exe",
                 "${file}"
@@ -23,6 +24,29 @@
                 "kind": "build",
                 "isDefault": true
             }
+        },
+        {
+            "label": "g++ 编译当前文件",
+            "type": "shell",
+            "command": "g++",
+            "args": [
+                "-std=c++17",
+                "-g",
+                "-O2",
+                "-Wall",
+                "-Wextra",
+                "-static",
+                "-o",
+                "${fileDirname}\\${fileBasenameNoExtension}.exe",
+                "${file}"
+            ],
+            "options": {
+                "cwd": "${fileDirname}"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": "build"
         }
     ]
 }
