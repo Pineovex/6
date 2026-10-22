@@ -1,0 +1,12 @@
+# 编译产物（用 gcc 重新生成就行，不用提交）
+*.exe
+*.o
+*.obj
+
+# Python 缓存
+__pycache__/
+*.pyc
+
+# 编辑器/系统临时文件
+Thumbs.db
+desktop.ini
