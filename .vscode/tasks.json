@@ -2,6 +2,27 @@
     "version": "2.0.0",
     "tasks": [
         {
+            // ★ 最常用：Ctrl+F5 → 编译 + 运行当前文件，输出显示在终端里
+            "label": "运行当前文件",
+            "type": "shell",
+            "command": "\"D:\\My code\\tools\\run.cmd\"",
+            "options": {
+                "cwd": "${fileDirname}",
+                "env": {
+                    "CURRENT_FILE": "${file}"
+                }
+            },
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared",
+                "clear": true,
+                "echo": false,
+                "focus": false
+            },
+            "problemMatcher": []
+        },
+        {
+            // 只编译不运行：C 文件
             "label": "gcc 编译当前文件",
             "type": "shell",
             "command": "gcc",
@@ -26,6 +47,7 @@
             }
         },
         {
+            // 只编译不运行：C++ 文件
             "label": "g++ 编译当前文件",
             "type": "shell",
             "command": "g++",
