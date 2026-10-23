@@ -2,7 +2,8 @@
     "version": "0.2.0",
     "configurations": [
         {
-            // C：F5 调试，程序输入输出全部走 VS Code 底部终端
+            // C：F5 调试。程序在下方终端里跑，断点、单步、变量都在 VS Code 里看。
+            // 想让程序跑在独立黑窗口里时，用 Ctrl+F5（任务：运行当前文件），不要去改这里。
             "name": "C: 调试当前文件",
             "type": "cppdbg",
             "request": "launch",
@@ -14,7 +15,9 @@
             "console": "integratedTerminal",
             "externalConsole": false,
             "MIMode": "gdb",
-            "miDebuggerPath": "D:\\Dev\\mingw64\\bin\\gdb.exe",
+            // 只写 gdb.exe，从 PATH 里找（D:\Dev\mingw64\bin 已加入用户 PATH），
+            // 这样以后换盘、换目录都不用改配置文件。
+            "miDebuggerPath": "gdb.exe",
             "setupCommands": [
                 {
                     "description": "为 gdb 启用整齐打印",
@@ -25,7 +28,7 @@
             "preLaunchTask": "gcc 编译当前文件"
         },
         {
-            // C++：F5 调试，同样走底部终端
+            // C++：同上，但编译用 -O0 版本，不然 -O2 优化后有些变量在调试器里显示成"被优化掉了"。
             "name": "C++: 调试当前文件",
             "type": "cppdbg",
             "request": "launch",
@@ -37,7 +40,7 @@
             "console": "integratedTerminal",
             "externalConsole": false,
             "MIMode": "gdb",
-            "miDebuggerPath": "D:\\Dev\\mingw64\\bin\\gdb.exe",
+            "miDebuggerPath": "gdb.exe",
             "setupCommands": [
                 {
                     "description": "为 gdb 启用整齐打印",
@@ -45,15 +48,17 @@
                     "ignoreFailures": true
                 }
             ],
-            "preLaunchTask": "g++ 编译当前文件"
+            "preLaunchTask": "g++ 编译当前文件（调试）"
         },
         {
-            // Python：F5 调试，走底部终端（不再是弹出黑窗口）
+            // Python：F5 调试。cwd 设成当前文件所在目录，
+            // 这样脚本里写 open("data.txt") 时找的是同目录下的文件，而不是项目根目录。
             "name": "Python: 调试当前文件",
             "type": "debugpy",
             "request": "launch",
             "program": "${file}",
             "console": "integratedTerminal",
+            "cwd": "${fileDirname}",
             "justMyCode": true
         }
     ]

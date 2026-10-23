@@ -92,6 +92,30 @@
                 "$gcc"
             ],
             "group": "build"
+        },
+        {
+            // 只给 F5 调试用：-O0 不优化，变量在调试器里才看得到真实值
+            "label": "g++ 编译当前文件（调试）",
+            "type": "shell",
+            "command": "g++",
+            "args": [
+                "-std=c++17",
+                "-g",
+                "-O0",
+                "-Wall",
+                "-Wextra",
+                "-static",
+                "-o",
+                "${fileDirname}\\${fileBasenameNoExtension}.exe",
+                "${file}"
+            ],
+            "options": {
+                "cwd": "${fileDirname}"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": "build"
         }
     ]
 }
