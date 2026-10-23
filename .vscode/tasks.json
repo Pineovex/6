@@ -5,7 +5,7 @@
             // ★ 最常用：Ctrl+F5 → 编译 + 运行当前文件，程序跑在独立的黑色控制台窗口里
             "label": "运行当前文件",
             "type": "shell",
-            "command": "\"D:\\My code\\tools\\run.cmd\"",
+            "command": "\"${workspaceFolder}\\tools\\run.cmd\"",
             "args": [
                 "/w"
             ],
@@ -28,7 +28,7 @@
             // 想在 VS Code 下面的终端里看输出时用这个（Ctrl+Shift+P → Run Task）
             "label": "运行当前文件（在终端里）",
             "type": "shell",
-            "command": "\"D:\\My code\\tools\\run.cmd\"",
+            "command": "\"${workspaceFolder}\\tools\\run.cmd\"",
             "options": {
                 "cwd": "${fileDirname}",
                 "env": {
