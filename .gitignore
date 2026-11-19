@@ -10,3 +10,13 @@ __pycache__/
 # 编辑器/系统临时文件
 Thumbs.db
 desktop.ini
+
+# Visual Studio 用户状态（每台机器不同，不该提交）
+.vs/
+*.vsidx
+*.wsuo
+*.VC.db
+*.VC.VC.opendb
+*.VC.db-wal
+*.VC.db-shm
+*.bak

@@ -67,7 +67,7 @@
 
 1. 三个程序都跑一遍，确认输出一致：
    ```cmd
-   cd /d D:\Mycode\notes\tri
+   cd /d D:\steptogod\notes\tri
    echo 8& echo 5 3 9 3 -2 9 0 5 > in.txt
    arr.exe < in.txt & arr_cpp.exe < in.txt & python arr.py < in.txt
    ```

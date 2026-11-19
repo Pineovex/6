@@ -1,0 +1,23 @@
+{
+    // 文件一律按 UTF-8 读/写（中文字符串不会乱码）。
+    "files.encoding": "utf8",
+    // 自动猜编码会让 UTF-8 中文文件有时被当成 GBK 打开，
+    // 这里保留原来的意图但不要它覆盖上面的显式设置。
+    "files.autoGuessEncoding": true,
+
+    // ── 终端 ─────────────────────────────────────────────
+    // 编码统一交给 PowerShell 自己的 profile.ps1：
+    //   C:\Users\<你>\Documents\WindowsPowerShell\profile.ps1
+    // （里面 chcp 65001 + 把输入/输出编码设成 UTF-8）
+    //
+    // 这里刻意不再自定义 terminal.integrated.profiles.windows：
+    // 只要给 PowerShell 的 profile 加 -File / -NoProfile 这类 args，
+    // VS Code 就会把"任务命令"拼成 -Command 塞在那个包装脚本后面，
+    // 包装脚本又把 -Command 当普通参数吞掉 →
+    // F5 之前的编译任务根本不执行，状态栏永远卡在"正在生成……"。
+    // 用 VS Code 内建的 PowerShell profile 才有 shell integration，
+    // 任务才会被正确判定为"跑完了"。
+
+    // Python 输出中文也别再出问题。
+    "python.terminal.executeInFileDir": true
+}

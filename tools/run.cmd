@@ -52,6 +52,12 @@ exit /b 2
 
 :build_c
 set "OUT=!DIR!!NAME!.exe"
+rem The previous run may still be alive and hold !NAME!.exe open; Windows
+rem will not let the linker overwrite it (ld.exe: cannot open output file
+rem ... Permission denied). Kill it first, then give the OS a moment to
+rem release the handle.
+taskkill /F /FI "IMAGENAME eq !NAME!.exe" >nul 2>nul
+ping -n 2 127.0.0.1 >nul
 echo [1/2] compiling !NAME!.c ...
 gcc -g -Wall -Wextra -static -o "!OUT!" "%SRC%"
 if errorlevel 1 (
@@ -64,6 +70,9 @@ goto :run_exe
 
 :build_cpp
 set "OUT=!DIR!!NAME!.exe"
+rem Same reason as :build_c -- a running exe cannot be overwritten.
+taskkill /F /FI "IMAGENAME eq !NAME!.exe" >nul 2>nul
+ping -n 2 127.0.0.1 >nul
 echo [1/2] compiling !NAME!.cpp ...
 g++ -std=c++17 -g -O2 -Wall -Wextra -static -o "!OUT!" "%SRC%"
 if errorlevel 1 (
@@ -90,6 +99,11 @@ if defined WIN (
 )
 
 rem ---- 2) run inside this terminal ----
+rem Sources are UTF-8 and gcc/g++ 14+ emit UTF-8 bytes, but the terminal is
+rem usually on code page 936 (GBK) -> Chinese shows up as mojibake.
+rem Switching this console to UTF-8 fixes it. (The new-window path does the
+rem same thing inside run-window.ps1.)
+chcp 65001 >nul
 echo [2/2] running !NAME!.exe ...
 echo ---------------------------------------
 "!OUT!"
@@ -106,6 +120,7 @@ if defined WIN (
     exit /b 0
 )
 echo [1/1] running !NAME!.py ...
+chcp 65001 >nul
 echo ---------------------------------------
 python "%SRC%"
 set "RC=!ERRORLEVEL!"

@@ -1,18 +1,29 @@
 {
+    // 编译器设置（IntelliSense 用）。
+    //
+    // compilerPath 指向 g++.exe 而不是 gcc.exe：
+    //   g++ 能同时处理 .c 和 .cpp，并且会带上 libstdc++ 的头文件路径，
+    //   所以写 #include <iostream> / <string> / <vector> 时不会标红。
+    //   如果这里填 gcc.exe，C++ 标准库的头文件路径可能识别不到，出现假的波浪线。
+    //
+    // 真正决定"编译用哪个程序"的地方不在这里，而是：
+    //   - 调试(F5)  -> .vscode/launch.json 的 preLaunchTask -> 任务「编译当前文件（调试）」
+    //                  -> tools\build.ps1 按扩展名选 gcc / g++
+    //   - 运行(Ctrl+F5) -> .vscode/tasks.json 的「运行当前文件」-> tools\run.cmd
+    //
+    // 换编译器（比如以后装 clang、或换 mingw 版本）时，改这三个地方：
+    //   1. 这里的 compilerPath
+    //   2. build.ps1 里 switch 用的 $compiler 名字
+    //   3. run.cmd 里 gcc / g++ 的调用
     "configurations": [
         {
             "name": "Win32-GCC",
-            "compilerPath": "D:/Dev/mingw64/bin/gcc.exe",
+            "compilerPath": "D:/Dev/mingw64/bin/g++.exe",
             "cStandard": "c17",
             "cppStandard": "c++17",
             "intelliSenseMode": "windows-gcc-x64",
             "includePath": [
                 "${workspaceFolder}/**"
-            ],
-            "defines": [
-                "_DEBUG",
-                "UNICODE",
-                "_UNICODE"
             ]
         }
     ],

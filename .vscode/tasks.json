@@ -2,7 +2,69 @@
     "version": "2.0.0",
     "tasks": [
         {
-            // ★ 最常用：Ctrl+F5 → 编译 + 运行当前文件，程序跑在独立的黑色控制台窗口里
+            "label": "编译当前文件（自动）",
+            "type": "shell",
+            "command": "powershell",
+            "args": [
+                "-NoProfile",
+                "-ExecutionPolicy",
+                "Bypass",
+                "-File",
+                "${workspaceFolder}\\tools\\build.ps1",
+                "-Src",
+                "${file}"
+            ],
+            "options": {
+                "cwd": "${fileDirname}"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": false
+            },
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared",
+                "clear": true,
+                "echo": true,
+                "focus": false
+            }
+        },
+        {
+            "label": "编译当前文件（调试）",
+            "type": "shell",
+            "command": "powershell",
+            "args": [
+                "-NoProfile",
+                "-ExecutionPolicy",
+                "Bypass",
+                "-File",
+                "${workspaceFolder}\\tools\\build.ps1",
+                "-Src",
+                "${file}",
+                "-DebugBuild"
+            ],
+            "options": {
+                "cwd": "${fileDirname}"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared",
+                "clear": true,
+                "echo": true,
+                "focus": false
+            }
+        },
+        {
             "label": "运行当前文件",
             "type": "shell",
             "command": "\"${workspaceFolder}\\tools\\run.cmd\"",
@@ -25,7 +87,6 @@
             "problemMatcher": []
         },
         {
-            // 想在 VS Code 下面的终端里看输出时用这个（Ctrl+Shift+P → Run Task）
             "label": "运行当前文件（在终端里）",
             "type": "shell",
             "command": "\"${workspaceFolder}\\tools\\run.cmd\"",
@@ -43,79 +104,6 @@
                 "focus": false
             },
             "problemMatcher": []
-        },
-        {
-            // 只编译不运行：C 文件
-            "label": "gcc 编译当前文件",
-            "type": "shell",
-            "command": "gcc",
-            "args": [
-                "-g",
-                "-Wall",
-                "-Wextra",
-                "-static",
-                "-o",
-                "${fileDirname}\\${fileBasenameNoExtension}.exe",
-                "${file}"
-            ],
-            "options": {
-                "cwd": "${fileDirname}"
-            },
-            "problemMatcher": [
-                "$gcc"
-            ],
-            "group": {
-                "kind": "build",
-                "isDefault": true
-            }
-        },
-        {
-            // 只编译不运行：C++ 文件
-            "label": "g++ 编译当前文件",
-            "type": "shell",
-            "command": "g++",
-            "args": [
-                "-std=c++17",
-                "-g",
-                "-O2",
-                "-Wall",
-                "-Wextra",
-                "-static",
-                "-o",
-                "${fileDirname}\\${fileBasenameNoExtension}.exe",
-                "${file}"
-            ],
-            "options": {
-                "cwd": "${fileDirname}"
-            },
-            "problemMatcher": [
-                "$gcc"
-            ],
-            "group": "build"
-        },
-        {
-            // 只给 F5 调试用：-O0 不优化，变量在调试器里才看得到真实值
-            "label": "g++ 编译当前文件（调试）",
-            "type": "shell",
-            "command": "g++",
-            "args": [
-                "-std=c++17",
-                "-g",
-                "-O0",
-                "-Wall",
-                "-Wextra",
-                "-static",
-                "-o",
-                "${fileDirname}\\${fileBasenameNoExtension}.exe",
-                "${file}"
-            ],
-            "options": {
-                "cwd": "${fileDirname}"
-            },
-            "problemMatcher": [
-                "$gcc"
-            ],
-            "group": "build"
         }
     ]
 }
